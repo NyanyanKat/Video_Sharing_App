@@ -133,15 +133,16 @@ const Video = () => {
   // const [video, setVideo] = useState({});
   const [channel, setChannel] = useState({});
   // const url = `http://localhost:8800/api/videos/find/${path}`;
+  // const url = `/videos/view/${path}`;
 
   useEffect(() => {
     // console.log("Hi");
     const fetchData = async () => {
       try {
         //Increase view count
-        await http.put(`/videos/view/${path}`);
-
         const videoRes = await http.get(`/videos/find/${path}`);
+
+        // await http.put(`${url}`);
 
         // console.log("videores", videoRes);
         const channelRes = await http.get(
@@ -180,6 +181,8 @@ const Video = () => {
       : await http.put(`/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
+
+  console.log(channel.img);
 
   return (
     <Container>

@@ -3,10 +3,11 @@ import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import UploadIcon from "@mui/icons-material/Upload";
+import UploadOutlinedIcon from "@mui/icons-material/UploadOutlined";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Upload from "./Upload";
-
 
 const Container = styled.div`
   position: sticky;
@@ -29,7 +30,7 @@ const Search = styled.div`
   position: absolute;
   left: 0px;
   right: 0px;
-  margin: auto;
+  margin: 200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,6 +66,8 @@ const User = styled.div`
   gap: 10px;
   font-weight: 500;
   color: ${({ theme }) => theme.text};
+  margin-right: 15px;
+  /* padding: 20px; */
 `;
 
 const Avatar = styled.img`
@@ -72,15 +75,20 @@ const Avatar = styled.img`
   height: 32px;
   border-radius: 50%;
   background-color: #999;
+  margin-left: 10px;
+`;
+
+const Icon = styled.div`
+  cursor: pointer;
+  margin: 10px;
 `;
 
 const Navbar = () => {
-
   //Open OR Close video upload page
   const [open, setOpen] = useState(false);
 
   //Search Query (q)
-  const [q, setQ] = useState('');
+  const [q, setQ] = useState("");
   const navigate = useNavigate();
 
   const { currentUser } = useSelector((state) => state.user);
@@ -91,12 +99,23 @@ const Navbar = () => {
       <Container>
         <Wrapper>
           <Search>
-            <Input placeholder="Search" onChange={e=>setQ(e.target.value)}/>
-            <SearchOutlinedIcon style={{cursor:"pointer"}} onClick={()=> navigate(`/search?q=${q}`)}/>
+            <Input
+              placeholder="Search"
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <SearchOutlinedIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/search?q=${q}`)}
+            />
           </Search>
           {currentUser ? (
             <User>
-              <UploadIcon onClick={() => setOpen(true)} />
+              <Icon>
+                <UploadOutlinedIcon onClick={() => setOpen(true)} />
+              </Icon>
+              <Icon>
+                <NotificationsNoneIcon />
+              </Icon>
               <Avatar src={currentUser.img} />
               {currentUser.name}
             </User>

@@ -105,9 +105,18 @@ const Comment = ({ comment }) => {
 
   const handleEditedComment = async (e) => {
     e.preventDefault();
-    await http.put(`/comments/${comment._id}`,
-      editedComment);
-    dispatch({ id: comment._id, desc: editedComment });
+    await http.put(`/comments/${comment._id}`, {
+      userId: comment.userId,
+      desc: editedComment,
+    });
+    dispatch(editComment({ id: comment._id, desc: editedComment }));
+    console.log("id:", comment._id);
+    console.log("desc", editedComment);
+    setIsEdit(false);
+  };
+
+  const handleCancel = async (e) => {
+    e.preventDefault();
     setIsEdit(false);
   };
 
@@ -119,7 +128,19 @@ const Comment = ({ comment }) => {
           {user.name} <Date>{format(comment.createdAt)}</Date>
         </Name>
         {!isEdit ? (
-          <Text>{comment.desc}</Text>
+          <>
+            <Text>{comment.desc}</Text>
+            {currentUser && (
+              <>
+                {currentUser._id === comment.userId && (
+                  <ButtonDetails>
+                    <Button onClick={handleEdit}>Edit</Button>
+                    <Button onClick={handleDelete}>Delete</Button>
+                  </ButtonDetails>
+                )}
+              </>
+            )}
+          </>
         ) : (
           <DIV>
             <Input
@@ -128,18 +149,8 @@ const Comment = ({ comment }) => {
               onChange={(e) => setEditedComment(e.target.value)}
             />
             <Button onClick={handleEditedComment}>Comment</Button>
+            <Button onClick={handleCancel}>Cancel</Button>
           </DIV>
-        )}
-
-        {currentUser && (
-          <>
-            {currentUser._id === comment.userId && (
-              <ButtonDetails>
-                <Button onClick={handleEdit}>Edit</Button>
-                <Button onClick={handleDelete}>Delete</Button>
-              </ButtonDetails>
-            )}
-          </>
         )}
       </Details>
     </Container>

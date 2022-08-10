@@ -37,19 +37,23 @@ export const getComments = async (req, res, next) => {
 };
 
 export const editComments = async (req, res, next) => {
-  try {
-    const editedComment = await Comment.findByIdAndUpdate(
-      req.params.id,
-      {
-        desc: req.body,
-      },
-      {
-        new: true,
-      }
-    );
+  if (req.user.id === req.body.userId) {
+    try {
+      const editedComment = await Comment.findByIdAndUpdate(
+        req.params.id,
+        {
+          desc: req.body.desc,
+        },
+        {
+          new: true,
+        }
+      );
 
-    res.status(200).json(editedComment);
-  } catch (err) {
-    next(err);
+      res.status(200).json(editedComment);
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    return next(createError(403, "You can only update your comment!"));
   }
 };

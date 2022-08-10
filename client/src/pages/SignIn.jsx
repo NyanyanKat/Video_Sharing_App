@@ -5,6 +5,7 @@ import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { auth, provider } from "../firebase.js";
 import { signInWithPopup } from "firebase/auth";
 import http from "../AxiosHook/axiosHook.js";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -74,6 +75,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -84,6 +86,7 @@ const SignIn = () => {
         password,
       });
       dispatch(loginSuccess(res.data));
+      navigate(-1);
     } catch (err) {
       dispatch(loginFailure());
     }
@@ -101,6 +104,7 @@ const SignIn = () => {
           })
           .then((res) => {
             dispatch(loginSuccess(res.data));
+            navigate(-1);
           });
       })
       .catch((error) => {

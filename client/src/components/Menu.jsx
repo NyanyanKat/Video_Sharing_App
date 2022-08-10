@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LamaTube from "../img/logo.png";
+import JimmyTube from "../img/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
@@ -92,7 +92,6 @@ const Menu = ({ darkMode, setDarkMode }) => {
   const dispatch = useDispatch();
 
   const logOut = (e) => {
-    e.preventDefault();
     dispatch(logout());
   };
 
@@ -101,8 +100,8 @@ const Menu = ({ darkMode, setDarkMode }) => {
       <Wrapper>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
-            <Img src={LamaTube} />
-            VideoShareDemo
+            <Img src={JimmyTube} />
+            JIMMYTUBE
           </Logo>
         </Link>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
@@ -159,7 +158,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </>
         )}
         <Hr />
-        <Title>BEST OF LAMATUBE</Title>
+        <Title>BEST OF JIMMYTUBE</Title>
         <Item>
           <LibraryMusicOutlinedIcon />
           Music
