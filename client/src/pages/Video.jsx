@@ -118,7 +118,7 @@ const Subscribe = styled.button`
 
 const VideoFrame = styled.video`
   max-height: 720px;
-  width: 90%;
+  width: 100%;
   object-fit: cover;
 `;
 const Video = () => {
@@ -137,6 +137,9 @@ const Video = () => {
     // console.log("Hi");
     const fetchData = async () => {
       try {
+        //Increase view count
+        await http.put(`/videos/view/${path}`);
+
         const videoRes = await http.get(`/videos/find/${path}`);
 
         // console.log("videores", videoRes);
@@ -232,7 +235,7 @@ const Video = () => {
           <Comments videoId={currentVideo._id} />
         </Content>
       )}
-      <Recommendation tags={currentVideo.tags}/>
+      <Recommendation tags={currentVideo.tags} />
     </Container>
   );
 };

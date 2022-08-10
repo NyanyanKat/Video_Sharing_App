@@ -29,10 +29,24 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const Comments = ({videoId}) => {
-  const {currentUser} = useSelector((state) => state.user);
-  
+const Button = styled.button`
+  padding: 5px 15px;
+  background-color: transparent;
+  border: 1px solid #3ea6ff;
+  color: #3ea6ff;
+  border-radius: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+const Comments = ({ videoId }) => {
+  const { currentUser } = useSelector((state) => state.user);
+
   const [comments, setComments] = useState([]);
+  const [comment, setAComment] = useState(undefined);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -44,14 +58,27 @@ const Comments = ({videoId}) => {
     fetchComments();
   }, [videoId]);
 
+  const handleComment = async (e) => {
+    e.preventDefault();
+    await http.post(`/comments`, {
+      videoId,
+      desc: comment,
+    });
+  };
+
   return (
     <Container>
       <NewComment>
         <Avatar src={currentUser.img} />
-        <Input placeholder="Add a comment..." />
+        <Input
+          type="text"
+          placeholder="Add a comment..."
+          onChange={(e) => setAComment(e.target.value)}
+        />
+        <Button onClick={handleComment}>Comment</Button>
       </NewComment>
       {comments.map((comment) => (
-        <Comment key={comment._id} comment={comment}/>
+        <Comment key={comment._id} comment={comment} />
       ))}
     </Container>
   );
