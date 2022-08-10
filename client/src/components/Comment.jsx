@@ -117,6 +117,7 @@ const Comment = ({ comment }) => {
 
   const handleCancel = async (e) => {
     e.preventDefault();
+    console.log(".env", process.env.REACT_APP_TEST);
     setIsEdit(false);
   };
 
