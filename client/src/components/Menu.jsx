@@ -18,7 +18,9 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userSlice.js";
+
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bgLighter};
@@ -61,6 +63,9 @@ const Hr = styled.hr`
 `;
 
 const Login = styled.div``;
+
+const Logout = styled.div``;
+
 const Button = styled.button`
   padding: 5px 15px;
   background-color: transparent;
@@ -84,6 +89,12 @@ const Title = styled.h2`
 
 const Menu = ({ darkMode, setDarkMode }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const logOut = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <Container>
@@ -125,7 +136,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           History
         </Item>
         <Hr />
-        {!currentUser && (
+        {!currentUser ? (
           <>
             <Login>
               Sign in to like videos, comment, and subscribe.
@@ -136,6 +147,15 @@ const Menu = ({ darkMode, setDarkMode }) => {
                 </Button>
               </Link>
             </Login>
+          </>
+        ) : (
+          <>
+            <Logout>
+              <Button onClick={logOut}>
+                <AccountCircleOutlinedIcon />
+                LOG OUT
+              </Button>
+            </Logout>
           </>
         )}
         <Hr />

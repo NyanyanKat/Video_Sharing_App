@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Comment from "./Comment";
 import http from "../AxiosHook/axiosHook.js";
 import { updateCurrentUser } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment, fetchSuccess } from "../redux/commentSlice.js";
 
 const Container = styled.div``;
 
@@ -14,8 +15,8 @@ const NewComment = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 `;
 
@@ -26,7 +27,11 @@ const Input = styled.input`
   background-color: transparent;
   outline: none;
   padding: 5px;
-  width: 100%;
+  width: 40%;
+`;
+
+const NotSignedIn = styled.p`
+  margin-top: 25px;
 `;
 
 const Button = styled.button`
@@ -44,15 +49,19 @@ const Button = styled.button`
 
 const Comments = ({ videoId }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const { currentComments } = useSelector((state) => state.comment);
 
-  const [comments, setComments] = useState([]);
+  const dispatch = useDispatch();
+
+  // const [comments, setComments] = useState([]);
   const [comment, setAComment] = useState(undefined);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const res = await http.get(`/comments/${videoId}`);
-        setComments(res.data);
+        // setComments(res.data);
+        dispatch(fetchSuccess(res.data));
       } catch (err) {}
     };
     fetchComments();
@@ -60,24 +69,35 @@ const Comments = ({ videoId }) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    await http.post(`/comments`, {
+    const oneComment = await http.post(`/comments`, {
       videoId,
       desc: comment,
     });
+    dispatch(addComment(oneComment.data));
   };
 
   return (
     <Container>
-      <NewComment>
-        <Avatar src={currentUser.img} />
-        <Input
-          type="text"
-          placeholder="Add a comment..."
-          onChange={(e) => setAComment(e.target.value)}
-        />
-        <Button onClick={handleComment}>Comment</Button>
-      </NewComment>
-      {comments.map((comment) => (
+      {currentUser ? (
+        <>
+          <NewComment>
+            <Avatar src={currentUser.img} />
+            <Input
+              type="text"
+              placeholder="Add a comment..."
+              onChange={(e) => setAComment(e.target.value)}
+            />
+            <Button onClick={handleComment}>Comment</Button>
+          </NewComment>
+        </>
+      ) : (
+        <>
+          <NotSignedIn>Please Sign In To Comment</NotSignedIn>
+          <hr />
+        </>
+      )}
+
+      {currentComments.map((comment) => (
         <Comment key={comment._id} comment={comment} />
       ))}
     </Container>

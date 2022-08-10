@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { format } from "timeago.js";
 import http from "../AxiosHook/axiosHook.js";
+import { deleteComment, editComment } from "../redux/commentSlice.js";
 
 const Container = styled.div`
   display: flex;
@@ -10,8 +12,8 @@ const Container = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 `;
 
@@ -37,8 +39,50 @@ const Text = styled.span`
   font-size: 14px;
 `;
 
+const ButtonDetails = styled.div`
+  display: flex;
+`;
+
+const Button = styled.button`
+  width: 90px;
+  padding: 5px;
+  background-color: transparent;
+  border: 1px solid #3ea6ff;
+  color: #3ea6ff;
+  border-radius: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-right: 15px;
+`;
+
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.soft};
+  color: ${({ theme }) => theme.text};
+  background-color: transparent;
+  outline: none;
+  padding: 5px;
+  margin-right: 10px;
+  width: 245px;
+  display: flex;
+`;
+
+const DIV = styled.div`
+  display: flex;
+`;
+
 const Comment = ({ comment }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
+  // const [deleteComment, setDeleteComment] = useState(false);
+  const [editedComment, setEditedComment] = useState(comment.desc);
 
   useEffect(() => {
     const fetchComment = async () => {
@@ -48,6 +92,25 @@ const Comment = ({ comment }) => {
     fetchComment();
   }, [comment.userId]);
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    await http.delete(`/comments/${comment._id}`);
+    dispatch(deleteComment(comment));
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    setIsEdit(true);
+  };
+
+  const handleEditedComment = async (e) => {
+    e.preventDefault();
+    await http.put(`/comments/${comment._id}`,
+      editedComment);
+    dispatch({ id: comment._id, desc: editedComment });
+    setIsEdit(false);
+  };
+
   return (
     <Container>
       <Avatar src={user.img} />
@@ -55,7 +118,29 @@ const Comment = ({ comment }) => {
         <Name>
           {user.name} <Date>{format(comment.createdAt)}</Date>
         </Name>
-        <Text>{comment.desc}</Text>
+        {!isEdit ? (
+          <Text>{comment.desc}</Text>
+        ) : (
+          <DIV>
+            <Input
+              type="text"
+              value={editedComment}
+              onChange={(e) => setEditedComment(e.target.value)}
+            />
+            <Button onClick={handleEditedComment}>Comment</Button>
+          </DIV>
+        )}
+
+        {currentUser && (
+          <>
+            {currentUser._id === comment.userId && (
+              <ButtonDetails>
+                <Button onClick={handleEdit}>Edit</Button>
+                <Button onClick={handleDelete}>Delete</Button>
+              </ButtonDetails>
+            )}
+          </>
+        )}
       </Details>
     </Container>
   );

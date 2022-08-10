@@ -25,6 +25,7 @@ import Recommendation from "../components/Recommendation";
 const Container = styled.div`
   display: flex;
   gap: 24px;
+  margin-left: -55px;
 `;
 
 const Content = styled.div`
@@ -160,13 +161,17 @@ const Video = () => {
   console.log("currentvid", currentVideo);
 
   const handleLike = async () => {
-    await http.put(`/users/like/${currentVideo._id}`);
-    dispatch(like(currentUser._id));
+    if (currentUser) {
+      await http.put(`/users/like/${currentVideo._id}`);
+      dispatch(like(currentUser._id));
+    }
   };
 
   const handleDislike = async () => {
-    await http.put(`/users/dislike/${currentVideo._id}`);
-    dispatch(dislike(currentUser._id));
+    if (currentUser) {
+      await http.put(`/users/dislike/${currentVideo._id}`);
+      dispatch(dislike(currentUser._id));
+    }
   };
 
   const handleSub = async () => {
@@ -181,7 +186,13 @@ const Video = () => {
       {currentVideo && (
         <Content>
           <VideoWrapper>
-            <VideoFrame controls loop autoPlay src={currentVideo.videoUrl} />
+            <VideoFrame
+              controls
+              loop
+              autoPlay
+              pip
+              src={currentVideo.videoUrl}
+            />
           </VideoWrapper>
           <Title>{currentVideo.title}</Title>
           <Details>
@@ -190,16 +201,28 @@ const Video = () => {
             </Info>
             <Buttons>
               <Button onClick={handleLike}>
-                {currentVideo.likes?.includes(currentUser._id) ? (
-                  <ThumbUpIcon />
+                {currentUser ? (
+                  <>
+                    {currentVideo.likes?.includes(currentUser._id) ? (
+                      <ThumbUpIcon />
+                    ) : (
+                      <ThumbUpOutlinedIcon />
+                    )}
+                  </>
                 ) : (
                   <ThumbUpOutlinedIcon />
                 )}{" "}
                 {currentVideo.likes?.length}
               </Button>
               <Button onClick={handleDislike}>
-                {currentVideo.dislikes?.includes(currentUser._id) ? (
-                  <ThumbDownIcon />
+                {currentUser ? (
+                  <>
+                    {currentVideo.dislikes?.includes(currentUser._id) ? (
+                      <ThumbDownIcon />
+                    ) : (
+                      <ThumbDownOffAltOutlinedIcon />
+                    )}
+                  </>
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
                 )}{" "}
@@ -226,9 +249,15 @@ const Video = () => {
               </ChannelDetail>
             </ChannelInfo>
             <Subscribe onClick={handleSub}>
-              {currentUser.subscribedUsers?.includes(channel._id)
-                ? "SUBSCRIBED"
-                : "SUBSCRIBE"}{" "}
+              {currentUser ? (
+                <>
+                  {currentUser.subscribedUsers?.includes(channel._id)
+                    ? "SUBSCRIBED"
+                    : "SUBSCRIBE"}
+                </>
+              ) : (
+                "SUBSCRIBE"
+              )}{" "}
             </Subscribe>
           </Channel>
           <Hr />

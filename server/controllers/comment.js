@@ -35,3 +35,21 @@ export const getComments = async (req, res, next) => {
     next(err);
   }
 };
+
+export const editComments = async (req, res, next) => {
+  try {
+    const editedComment = await Comment.findByIdAndUpdate(
+      req.params.id,
+      {
+        desc: req.body,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json(editedComment);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -142,13 +142,22 @@ export const Upload = ({ setOpen }) => {
     img && uploadFile(img, "imgUrl");
   }, [img]);
 
-  const handleUpload  = async (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await http.post('/videos', {...inputs, tags});
-    setOpen(false);
-    res.status===200 && navigate(`/video/${res.data._id}`);
+    if (
+      !inputs.title ||
+      !inputs.desc ||
+      !inputs.videoUrl ||
+      !inputs.imgUrl ||
+      tags.length === 0
+    ) {
+      console.log("One or more fields is missing input");
+    } else {
+      const res = await http.post("/videos", { ...inputs, tags });
+      setOpen(false);
+      res.status === 200 && navigate(`/video/${res.data._id}`);
+    }
   };
-
 
   return (
     <Container>
