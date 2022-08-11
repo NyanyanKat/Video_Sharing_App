@@ -1,7 +1,6 @@
 # 1 About
 
-Functional Youtube-like application with CRUD functionalities  
-Built with React, Redux, Express Server, MongoDB, Material UI, and Firebase
+A Youtube-like app using React, Redux, Express Server, JWT authentication, Firebase for Google authentication and video upload, MongoDB for database, and Styled-Components/Material UI for styling.
 
 # 2 Features
 
