@@ -20,7 +20,7 @@ This application includes the major features of Youtube such as
 - like and dislike a video
 - subscribe and unsubscribe to a channel
 
-# 3 Used technologies
+# 3 Used Technologies
 
 - [React / create-react-app](https://github.com/facebook/create-react-app)
 - [React Router](https://github.com/remix-run/react-router)
