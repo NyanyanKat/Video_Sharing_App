@@ -1,6 +1,6 @@
 # 1 About
 
-Functional Youtube-Like Clone CRUD functionalities with React, Redux, and Express Server, utilizing reusable components
+Functional Youtube-like clone CRUD functionalities with React, Redux, and Express Server, utilizing reusable components
 
 # 2 Features
 
