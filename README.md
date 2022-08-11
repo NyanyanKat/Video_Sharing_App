@@ -52,7 +52,7 @@ This application includes the major features of Youtube such as
 # 5 Todo Tasks
 
 - add, edit, and delete user
-- admin funtionality
+- admin functionality
 - improvement on styling
 - comment replies
 - increment video views on page visit
