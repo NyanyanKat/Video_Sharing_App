@@ -1,5 +1,7 @@
 # 1 About
 
+Functional Youtube Like Clone with CRUD functionalities.
+
 # 2 Features
 
 This application includes the major features of Youtube such as
@@ -11,6 +13,7 @@ This application includes the major features of Youtube such as
 - subscribed channels' videos
 - recommended videos
 - search for videos
+- upload video
 - watch videos
 - video details
 - add, display, edit, delete comments
@@ -33,3 +36,29 @@ This application includes the major features of Youtube such as
 - [Firebase](https://firebase.google.com)
 - [Axios](https://github.com/axios/axios)
 - [MongoDB](https://www.mongodb.com)
+
+# 4 Completed Tasks
+
+- fetch and display users, videos, comments
+- sign in with JWT or Google authentication
+- authorize user with cookie storage
+- routing and make changes to MongoDB database
+- persist info with redux
+- upload video to Firebase
+- like and dislike a video
+- subscribe and Unsubscribe to a channel
+- add, edit, delete comments
+
+# 5 Todo Tasks
+
+- add, edit, and delete user
+- admin funtionality
+- improvement on styling
+- comment replies
+- increment video views on page visit
+
+# 6 Disclaimer
+
+This project is **solely intended for practicing purposes**.
+
+It is **not intended to create any kind of Youtube competitor**, but to advance my skills in full-stack development.
