@@ -1,6 +1,6 @@
 # 1 About
 
-Functional Youtube Like Clone with CRUD functionalities Front and Back-End, utilizing reusable Card components.
+Functional Youtube-Like Clone CRUD functionalities with React, Redux, and Express Server, utilizing reusable components
 
 # 2 Features
 
@@ -35,7 +35,7 @@ This application includes the major features of Youtube such as
 - [Mongoose](https://github.com/Automattic/mongoose)
 - [Firebase](https://firebase.google.com)
 - [Axios](https://github.com/axios/axios)
-- [MongoDBV](https://www.mongodb.com)
+- [MongoDB](https://www.mongodb.com)
 
 # 4 Completed Tasks
 
