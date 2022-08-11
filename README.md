@@ -1,6 +1,6 @@
 # 1 About
 
-Functional Youtube Like Clone with CRUD functionalities Front and Back-End.
+Functional Youtube Like Clone with CRUD functionalities Front and Back-End, utilizing reusable Card components.
 
 # 2 Features
 
