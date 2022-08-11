@@ -1,7 +1,7 @@
 # 1 About
 
 Functional Youtube-like application with CRUD functionalities  
-Built with React, Redux, Express Server, MongoDB, and Firebase
+Built with React, Redux, Express Server, MongoDB, Material UI, and Firebase
 
 # 2 Features
 
