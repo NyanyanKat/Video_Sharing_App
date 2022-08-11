@@ -40,22 +40,24 @@ This application includes the major features of Youtube such as
 # 4 Completed Tasks
 
 - fetch and display users, videos, comments
-- sign in with JWT or Google authentication
-- authorize user with cookie storage
+- sign in with username or Google authentication
+- authorize users with JWT tokens
 - routing and make changes to MongoDB database
 - persist info with redux
 - upload video to Firebase
-- like and dislike a video
+- like and dislike functionality
+- search functionality
 - subscribe and unsubscribe to a channel
 - add, edit, delete comments
 
 # 5 Todo Tasks
 
+- user profile
 - add, edit, and delete user
 - admin functionality
 - improvement on styling
 - comment replies
-- increment video views on page visit
+- increment video views
 
 # 6 Disclaimer
 
