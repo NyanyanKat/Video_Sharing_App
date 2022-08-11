@@ -46,7 +46,7 @@ This application includes the major features of Youtube such as
 - persist info with redux
 - upload video to Firebase
 - like and dislike a video
-- subscribe and Unsubscribe to a channel
+- subscribe and unsubscribe to a channel
 - add, edit, delete comments
 
 # 5 Todo Tasks
