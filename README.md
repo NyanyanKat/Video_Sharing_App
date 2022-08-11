@@ -1,6 +1,6 @@
 # 1 About
 
-Functional Youtube Like Clone with CRUD functionalities.
+Functional Youtube Like Clone with CRUD functionalities Front and Back-End.
 
 # 2 Features
 
