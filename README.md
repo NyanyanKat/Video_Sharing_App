@@ -4,6 +4,7 @@
 
 This application includes the major features of Youtube such as
 
+- sign up, sign in, sign out a channel
 - home feed with infinite scroll
 - trending videos
 - random videos
