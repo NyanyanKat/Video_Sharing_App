@@ -97,7 +97,7 @@ const Comments = ({ videoId }) => {
         </>
       )}
 
-      {currentComments.map((comment) => (
+      {currentComments?.map((comment) => (
         <Comment key={comment._id} comment={comment} />
       ))}
     </Container>

@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
+  /* overflow: hidden; */
 `;
 
 const Main = styled.div`
