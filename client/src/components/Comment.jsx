@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { format } from "timeago.js";
 import http from "../AxiosHook/axiosHook.js";
 import { deleteComment, editComment } from "../redux/commentSlice.js";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const Container = styled.div`
   display: flex;
@@ -41,6 +45,10 @@ const Text = styled.span`
 
 const ButtonDetails = styled.div`
   display: flex;
+  gap: 20px;
+  color: ${({ theme }) => theme.text};
+  transform: scale(0.7);
+  margin-left: -25px;
 `;
 
 const Button = styled.button`
@@ -83,6 +91,7 @@ const Comment = ({ comment }) => {
   const [isEdit, setIsEdit] = useState(false);
   // const [deleteComment, setDeleteComment] = useState(false);
   const [editedComment, setEditedComment] = useState(comment.desc);
+  const [edited, setEdited] = useState(false);
 
   useEffect(() => {
     const fetchComment = async () => {
@@ -112,6 +121,7 @@ const Comment = ({ comment }) => {
     dispatch(editComment({ id: comment._id, desc: editedComment }));
     console.log("id:", comment._id);
     console.log("desc", editedComment);
+    setEdited(true);
     setIsEdit(false);
   };
 
@@ -126,12 +136,15 @@ const Comment = ({ comment }) => {
       <Avatar src={user.img} />
       <Details>
         <Name>
-          {user.name} <Date>{format(comment.createdAt)}</Date>
+          {user.name}{" "}
+          <Date>
+            {edited ? "now (edited)" : <>{format(comment.updatedAt)}</>}
+          </Date>
         </Name>
         {!isEdit ? (
           <>
             <Text>{comment.desc}</Text>
-            {currentUser && (
+            {currentUser ? (
               <>
                 {currentUser._id === comment.userId && (
                   <ButtonDetails>
@@ -139,6 +152,13 @@ const Comment = ({ comment }) => {
                     <Button onClick={handleDelete}>Delete</Button>
                   </ButtonDetails>
                 )}
+              </>
+            ) : (
+              <>
+                <ButtonDetails>
+                  <ThumbUpOutlinedIcon />
+                  <ThumbDownOffAltOutlinedIcon />
+                </ButtonDetails>
               </>
             )}
           </>

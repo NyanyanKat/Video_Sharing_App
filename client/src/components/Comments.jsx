@@ -30,8 +30,9 @@ const Input = styled.input`
   width: 40%;
 `;
 
-const NotSignedIn = styled.p`
+const NotSignedIn = styled.h3`
   margin-top: 25px;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
@@ -92,7 +93,7 @@ const Comments = ({ videoId }) => {
         </>
       ) : (
         <>
-          <NotSignedIn>Please Sign In To Comment</NotSignedIn>
+          <NotSignedIn>Please Sign In to Comment</NotSignedIn>
           <hr />
         </>
       )}
